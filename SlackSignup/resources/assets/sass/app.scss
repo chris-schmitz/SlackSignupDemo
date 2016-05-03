@@ -1,2 +1,22 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/font-awesome/scss/font-awesome";
+
+$primary-color: #189995;
+$disabled: #D5D5D5;
+
+.annotation{
+    display: block;
+    margin-left:5px;
+}
+
+.submit-button{
+    color: $primary-color;
+    background-color: lighten($primary-color, 20%);
+    cursor: pointer;
+
+}
+
+.disabled{
+    color: $disabled;
+    background-color: lighten($disabled, 10%);
+}

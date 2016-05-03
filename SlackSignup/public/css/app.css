@@ -7915,4 +7915,17 @@ button.close {
   overflow: visible;
   clip: auto; }
 
+.annotation {
+  display: block;
+  margin-left: 5px; }
+
+.submit-button {
+  color: #189995;
+  background-color: #37e0da;
+  cursor: pointer; }
+
+.disabled {
+  color: #D5D5D5;
+  background-color: #efefef; }
+
 /*# sourceMappingURL=app.css.map */

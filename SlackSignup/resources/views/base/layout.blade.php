@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/css/app.css">
 </head>
     <body>
-        <div class="content">
+        <div class="container">
             @include('base.partials._notifications')
             @yield('content')
         </div>
