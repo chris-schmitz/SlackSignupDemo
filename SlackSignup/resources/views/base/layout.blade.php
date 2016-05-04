@@ -3,6 +3,7 @@
 <head>
     <title>@yield('title')</title>
     <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <meta id="token" name="token" value="{{ csrf_token() }}">
 </head>
     <body>
         <div class="container">

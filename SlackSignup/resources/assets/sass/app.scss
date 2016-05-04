@@ -1,8 +1,10 @@
+$primary-color: #189995;
+$disabled: #D5D5D5;
+
+
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/font-awesome/scss/font-awesome";
 
-$primary-color: #189995;
-$disabled: #D5D5D5;
 
 .annotation{
     display: block;

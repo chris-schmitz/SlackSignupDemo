@@ -1,11 +1,14 @@
 let Vue = require('vue')
 let vueForm = require('vue-form')
+let vueResource = require('vue-resource')
 
 Vue.use(vueForm)
+Vue.use(vueResource)
 
 new Vue({
     el: 'body',
     data: {
+        token: null,
         invites: {
             meetup: true,
             slack: true
@@ -34,6 +37,8 @@ new Vue({
             (newValue, oldValue) => {
             me.email.isRequired = newValue === true
         })
+
+        this.token = document.getElementById('token').getAttribute('value') || null
     },
     computed:{
         emailHasError: function (){
@@ -51,7 +56,6 @@ new Vue({
         // to. If we ever add more than two we would need to adjust this 
         // logic.
         toggleMeetupInvite: function (slackValue){
-            debugger
             if(slackValue === false && this.invites.meetup === false){
                 this.invites.meetup = true
             }
@@ -62,7 +66,36 @@ new Vue({
             }
         },
         submit: function (){
-            debugger;
+            if(!this.formIsValid){
+                return
+            }
+
+            let me = this
+            let payload = this.buildPayload()
+
+            this.$http({
+                url: 'signup',
+                method: 'POST',
+                data: payload      
+            }).then((response) => {
+                debugger
+                console.log('submitted successfully')
+                // switch to success view
+            }, (response) => {
+                debugger
+                // show an alert error message and let them try again
+                console.log('error submitting')
+            })
+            // ajax post to server
+            // show success page (vue router?)
+        },
+        buildPayload: function (){
+            return {
+                invites: this.invites,
+                name: this.name,
+                email: this.email.value,
+                "_token": this.token
+            }
         }
     }
 })
