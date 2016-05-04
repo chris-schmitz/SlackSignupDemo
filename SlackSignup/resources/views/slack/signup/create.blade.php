@@ -8,9 +8,10 @@ Signup
     <p>
         STL Full Stack Web Development is a meetup group in Saint Louis, Missouri that meets monthly to review topics that make up the web development world.
     </p>
+
     <p>
         <form v-form name="signupForm" action="{{ route('slack.signup.store') }}" method="POST">
-            Submitting your email on this form will:
+            Submitting your email on this form will (<i>you must select at least one</i>):
             <ul>
                 <li class="checkbox">
                     <label>
@@ -47,7 +48,7 @@ Signup
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <div type="submit" @click="submit" class="btn btn-success">Submit</div>
+                    <div type="submit" @click="submit" class="btn btn-success" :class="{'disabled': !formIsValid}">Submit</div>
                 </div>
             </div>
         </form>

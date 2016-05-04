@@ -1,1 +1,1 @@
-<h2>Notifications</h2>
+<h2>**Notifications**</h2>

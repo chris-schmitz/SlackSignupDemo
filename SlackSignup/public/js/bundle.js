@@ -10548,8 +10548,8 @@ new Vue({
     el: 'body',
     data: {
         invites: {
-            meetup: false,
-            slack: false
+            meetup: true,
+            slack: true
         },
         signupForm: null,
         email: {
@@ -10561,8 +10561,15 @@ new Vue({
             last: null
         }
     },
+    watch: {
+        'invites.slack': 'toggleMeetupInvite',
+        'invites.meetup': 'toggleSlackInvite'
+    },
     ready: function ready() {
         var me = this;
+        // We're adding this watcher once the component is ready
+        // because at the time that the vue instance's watch property
+        // is built up the signupForm has not yet been set by vue-form.
         me.$watch(function () {
             return me.signupForm.email.$touched;
         }, function (newValue, oldValue) {
@@ -10572,9 +10579,29 @@ new Vue({
     computed: {
         emailHasError: function emailHasError() {
             return this.signupForm.email.$invalid;
+        },
+        formIsValid: function formIsValid() {
+            var invitesAreValid = this.invites.meetup || this.invites.slack;
+            var emailIsValid = this.email.value !== null && this.emailHasError === false;
+            return invitesAreValid && emailIsValid;
         }
     },
     methods: {
+        // note that with these two toggle methods and their associated
+        // watchers, the logic only works if we have two things to invite
+        // to. If we ever add more than two we would need to adjust this
+        // logic.
+        toggleMeetupInvite: function toggleMeetupInvite(slackValue) {
+            debugger;
+            if (slackValue === false && this.invites.meetup === false) {
+                this.invites.meetup = true;
+            }
+        },
+        toggleSlackInvite: function toggleSlackInvite(meetupValue) {
+            if (meetupValue === false && this.invites.slack === false) {
+                this.invites.slack = true;
+            }
+        },
         submit: function submit() {
             debugger;
         }
