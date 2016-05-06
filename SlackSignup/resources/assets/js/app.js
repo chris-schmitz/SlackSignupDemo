@@ -1,7 +1,6 @@
 let Vue = require('vue')
 let vueForm = require('vue-form')
 let vueResource = require('vue-resource')
-window.$ = require('jquery')
 let bootstrap = require('bootstrap-sass')
 
 Vue.use(vueForm)
@@ -13,10 +12,31 @@ Vue.use(vueResource)
 
 let Notifications = Vue.extend({
     template: '#notifications',
-    notification:{
-        show: false,
-        type: 'danger',
-        message: 'test!!'
+    data: () => {
+        return {
+            notification:{
+                show: false,
+                type: null,
+                message: null
+            },
+        }
+    },
+    events:{
+        showNotification: 'showNotification'
+    },
+    methods: {
+        showNotification: function (payload){
+            // since we're using the es6 rest parameter in the parent component to pass the payload through
+            // it's going to come in as an array. That said, there may be other instances where we just pass
+            // an object in. This check will allow us to handle either scenario. 
+            let notificationData = Array.isArray(payload) ? payload[0] : payload
+            this.notification.type = notificationData.type || 'info'
+            this.notification.message = notificationData.message || '??! the dev f-ed something up :/'
+            this.notification.show = true
+        },
+        hideNotification: function (){
+            this.notification.show = false
+        }
     }
 });
 
@@ -90,18 +110,25 @@ let SignupForm = Vue.extend({
             let me = this
             let payload = this.buildPayload()
 
-            this.$http({
+            me.$http({
                 url: 'signup',
                 method: 'POST',
                 data: payload      
             }).then((response) => {
-                debugger
-                console.log('submitted successfully')
-                // switch to success view
+                let notificationPayload = {
+                    type: 'success',
+                    message: "Your invites have been submitted."
+                }
+
+                me.$dispatch('showNotification', notificationPayload)
+
             }, (response) => {
-                debugger
-                // show an alert error message and let them try again
-                console.log('error submitting')
+                let notificationPayload = {
+                    type: 'danger',
+                    message: "There was an error with your submission. Please try again."
+                }
+
+                me.$dispatch('showNotification', notificationPayload)
             })
             // ajax post to server
             // show success page (vue router?)
@@ -122,6 +149,15 @@ new Vue({
     components:{
         'notifications': Notifications,
         'signup-form': SignupForm
+    },
+    // Note: first we're going to do event passing between components
+    // once you get that working and committed, refactor to use vuex
+    // for shared state. It's not really needed in this simple system, 
+    // but it would be cool to work with :P
+    events:{
+        showNotification: function (...payload){
+            this.$broadcast('showNotification', payload)
+        }
     },
     data: {}
 })
