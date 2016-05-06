@@ -13,33 +13,31 @@ Vue.use(vueResource)
 
 let Notifications = Vue.extend({
     template: '#notifications',
-    props:['notification']
+    notification:{
+        show: false,
+        type: 'danger',
+        message: 'test!!'
+    }
 });
 
-new Vue({
-    el: 'body',
-    components:{
-        'notifications': Notifications
-    },
-    data: {
-        token: null,
-        invites: {
-            meetup: true,
-            slack: true
-        },
-        signupForm: null,
-        email: {
-            value: null,
-            isRequired: false
-        },
-        name:{
-            first: null,
-            last: null
-        },
-        notification:{
-            show: false,
-            type: 'danger',
-            message: 'test!!'
+let SignupForm = Vue.extend({
+    template: '#signupForm',
+    data: () => {
+        return {
+            token: null,
+            invites: {
+                meetup: true,
+                slack: true
+            },
+            signupForm: null,
+            email: {
+                value: null,
+                isRequired: false
+            },
+            name:{
+                first: null,
+                last: null
+            }
         }
     },
     watch:{
@@ -117,4 +115,13 @@ new Vue({
             }
         }
     }
+})
+
+new Vue({
+    el: 'body',
+    components:{
+        'notifications': Notifications,
+        'signup-form': SignupForm
+    },
+    data: {}
 })
