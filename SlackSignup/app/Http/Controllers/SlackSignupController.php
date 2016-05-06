@@ -14,6 +14,7 @@ class SlackSignupController extends Controller
 
     public function store(Request $request)
     {
-        return 'stored';
+        $data = $request->all();
+        return compact('data');
     }
 }

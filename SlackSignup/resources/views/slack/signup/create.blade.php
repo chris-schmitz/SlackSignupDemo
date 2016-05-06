@@ -5,6 +5,17 @@ Signup
 @stop
 
 @section('content')
+    <template id="notifications">
+        <div v-show="notification.show">
+
+            <div   class="alert alert-@{{notification.type}} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>@{{notification.type | capitalize}}!</strong> @{{notification.message | capitalize}}
+            </div>
+        </div>
+    </template>
+
+    <notifications :notification="notification"></notifications>
     <p>
         STL Full Stack Web Development is a meetup group in Saint Louis, Missouri that meets monthly to review topics that make up the web development world.
     </p>

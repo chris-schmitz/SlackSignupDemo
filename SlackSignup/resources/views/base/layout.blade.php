@@ -7,10 +7,10 @@
 </head>
     <body>
         <div class="container">
-            @include('base.partials._notifications')
             @yield('content')
         </div>
-        @yield('extrascripts')
+        <script src="/js/jquery.js"></script>
         <script src="/js/bundle.js"></script>
+        @yield('extrascripts')
     </body>
 </html>

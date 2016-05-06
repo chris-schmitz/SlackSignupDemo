@@ -1,12 +1,26 @@
 let Vue = require('vue')
 let vueForm = require('vue-form')
 let vueResource = require('vue-resource')
+window.$ = require('jquery')
+let bootstrap = require('bootstrap-sass')
 
 Vue.use(vueForm)
 Vue.use(vueResource)
 
+// once you've got all of this hammered out. Extract the logic into it's own signupform component.
+// you'll need to do this to use the vue router anyway (I believe).
+// Also, when you implement the router, put some sweet animate.css transitions in! (guitar squeal)
+
+let Notifications = Vue.extend({
+    template: '#notifications',
+    props:['notification']
+});
+
 new Vue({
     el: 'body',
+    components:{
+        'notifications': Notifications
+    },
     data: {
         token: null,
         invites: {
@@ -21,6 +35,11 @@ new Vue({
         name:{
             first: null,
             last: null
+        },
+        notification:{
+            show: false,
+            type: 'danger',
+            message: 'test!!'
         }
     },
     watch:{
