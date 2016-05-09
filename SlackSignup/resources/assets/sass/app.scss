@@ -4,7 +4,11 @@ $disabled: #D5D5D5;
 
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/font-awesome/scss/font-awesome";
+@import "node_modules/animate.css/animate";
 
+.content{
+    margin-top: 40px;
+}
 
 .annotation{
     display: block;
@@ -21,4 +25,17 @@ $disabled: #D5D5D5;
 .disabled{
     color: $disabled;
     background-color: lighten($disabled, 10%);
+}
+
+.expand-transition{
+    transition: all .3s ease;
+    height:100px;
+    padding: 10px;
+    overflow:hidden;
+}
+
+.expand-enter, .expand-leave {
+    height:0;
+    padding: 0 10px;
+    opacity: 0;
 }

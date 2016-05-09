@@ -29,9 +29,9 @@ Signup
 
     {{-- Templates --}}
     <template id="notifications">
-        <div v-show="notification.show">
+        <div v-show="notification.show" class="animated" transition="flip">
 
-            <div   class="alert alert-@{{notification.type}} alert-dismissible" role="alert">
+            <div class="alert alert-@{{notification.type}} alert-dismissible" role="alert">
                 <button type="button" class="close" @click="hideNotification" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>@{{notification.type | capitalize}}!</strong> @{{notification.message | capitalize}}
             </div>
@@ -40,7 +40,7 @@ Signup
 
     <template id="signupForm">
         <p>
-            <form v-form name="signupForm" action="{{ route('slack.signup.store') }}" method="POST">
+            <form v-form v-show="!submitted" name="signupForm" action="{{ route('slack.signup.store') }}" method="POST">
                 Submitting your email on this form will (<i>you must select at least one</i>):
                 <ul>
                     <li class="checkbox">
@@ -82,6 +82,7 @@ Signup
                     </div>
                 </div>
             </form>
+            <notifications></notifications>
         </p>
     </template>
 

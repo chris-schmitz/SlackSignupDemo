@@ -1,10 +1,14 @@
 let Vue = require('vue')
 let vueForm = require('vue-form')
 let vueResource = require('vue-resource')
-let bootstrap = require('bootstrap-sass')
 
 Vue.use(vueForm)
 Vue.use(vueResource)
+
+Vue.transition('flip', {
+    enterClass: 'flipInX',
+    leaveClass: 'flipOutX'
+})
 
 // once you've got all of this hammered out. Extract the logic into it's own signupform component.
 // you'll need to do this to use the vue router anyway (I believe).
@@ -42,9 +46,13 @@ let Notifications = Vue.extend({
 
 let SignupForm = Vue.extend({
     template: '#signupForm',
+    components:{
+        notifications: Notifications
+    },
     data: () => {
         return {
             token: null,
+            submitted: false,
             invites: {
                 meetup: true,
                 slack: true
@@ -115,6 +123,8 @@ let SignupForm = Vue.extend({
                 method: 'POST',
                 data: payload      
             }).then((response) => {
+                this.submitted = true
+                
                 let notificationPayload = {
                     type: 'success',
                     message: "Your invites have been submitted."
