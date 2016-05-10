@@ -124,10 +124,10 @@ let SignupForm = Vue.extend({
                 data: payload      
             }).then((response) => {
                 this.submitted = true
-                
+
                 let notificationPayload = {
                     type: 'success',
-                    message: "Your invites have been submitted."
+                    message: response.data.message
                 }
 
                 me.$dispatch('showNotification', notificationPayload)
