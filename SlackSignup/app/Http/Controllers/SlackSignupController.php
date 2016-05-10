@@ -16,6 +16,7 @@ class SlackSignupController extends Controller
 
     public function store(Request $request, Signup $signups)
     {
+        // validation
         $data = $request->all();
 
         $signupData = [
@@ -26,6 +27,6 @@ class SlackSignupController extends Controller
 
         $signups->persist($signupData);
 
-        return $this->response('test', 200, ['name' => 'chris'], [['type' => 'CONTENT-TYPE', 'value' => 'lol', 'force' => true]]);
+        return $this->response('Signup successful.', 500);
     }
 }
