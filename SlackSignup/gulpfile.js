@@ -1,4 +1,5 @@
-var elixir = require('laravel-elixir');
+var elixir = require('laravel-elixir')
+require('laravel-elixir-vueify')
 var gulp = require('gulp')
 
 /*
