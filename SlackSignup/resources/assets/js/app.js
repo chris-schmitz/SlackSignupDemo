@@ -20,8 +20,9 @@ let Notifications = Vue.extend({
         return {
             notification:{
                 show: false,
+                showResendButton: false,
                 type: null,
-                message: null
+                message: null,
             },
         }
     },
@@ -37,9 +38,13 @@ let Notifications = Vue.extend({
             this.notification.type = notificationData.type || 'info'
             this.notification.message = notificationData.message || '??! the dev f-ed something up :/'
             this.notification.show = true
+            this.notification.showResendButton = notificationData.showResendButton || false
         },
         hideNotification: function (){
             this.notification.show = false
+        },
+        resendInvites: function (){
+            this.$dispatch('resendInvites');
         }
     }
 });
@@ -71,6 +76,9 @@ let SignupForm = Vue.extend({
     watch:{
         'invites.slack': 'toggleMeetupInvite',
         'invites.meetup': 'toggleSlackInvite',
+    },
+    events:{
+        resendInvites: 'resendInvites'
     },
     ready: function (){
         let me = this
@@ -110,13 +118,14 @@ let SignupForm = Vue.extend({
                 this.invites.slack = true
             }
         },
-        submit: function (){
+        submit: function (config){
             if(!this.formIsValid){
                 return
             }
 
             let me = this
-            let payload = this.buildPayload()
+            let resend = config.resendInvites || false
+            let payload = this.buildPayload(resend)
 
             me.$http({
                 url: 'signup',
@@ -133,9 +142,19 @@ let SignupForm = Vue.extend({
                 me.$dispatch('showNotification', notificationPayload)
 
             }, (response) => {
-                let notificationPayload = {
-                    type: 'danger',
-                    message: "There was an error with your submission. Please try again."
+                let notificationPayload = null
+
+                if(response.status === 409){
+                    notificationPayload = {
+                        type: 'warning',
+                        message: response.data.message,
+                        showResendButton: true
+                    }
+                } else {
+                    notificationPayload = {
+                        type: 'danger',
+                        message: "There was an error with your submission. Please try again."
+                    }
                 }
 
                 me.$dispatch('showNotification', notificationPayload)
@@ -143,13 +162,17 @@ let SignupForm = Vue.extend({
             // ajax post to server
             // show success page (vue router?)
         },
-        buildPayload: function (){
+        buildPayload: function (resend){
             return {
                 invites: this.invites,
                 name: this.name,
                 email: this.email.value,
-                "_token": this.token
+                "_token": this.token,
+                resend: resend
             }
+        },
+        resendInvites: function (){
+            this.submit({resendInvites: true});
         }
     }
 })
@@ -167,6 +190,9 @@ new Vue({
     events:{
         showNotification: function (...payload){
             this.$broadcast('showNotification', payload)
+        },
+        resendInvites: function (){
+            this.$broadcast('resendInvites')
         }
     },
     data: {}

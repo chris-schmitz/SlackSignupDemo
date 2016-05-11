@@ -33,7 +33,12 @@ Signup
 
             <div class="alert alert-@{{notification.type}} alert-dismissible" role="alert">
                 <button type="button" class="close" @click="hideNotification" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>@{{notification.type | capitalize}}!</strong> @{{notification.message | capitalize}}
+                <p>
+                    <strong>@{{notification.type | capitalize}}!</strong> @{{notification.message | capitalize}}
+                </p>
+                <p v-show="notification.showResendButton">
+                    Would you like to resend your invitation(s)? <button class="btn btn-primary" @click="resendInvites">Resend</button>
+                </p>
             </div>
         </div>
     </template>
@@ -82,7 +87,9 @@ Signup
                     </div>
                 </div>
             </form>
+            {{--
             <notifications></notifications>
+             --}}
         </p>
     </template>
 
