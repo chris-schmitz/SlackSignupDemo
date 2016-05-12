@@ -85,7 +85,8 @@
                         message: response.data.message
                     }
 
-                    me.$dispatch('showNotification', notificationPayload)
+                    me.$dispatch('showSuccess', notificationPayload)
+                    // me.$dispatch('showNotification', notificationPayload)
 
                 }, (response) => {
                     let notificationPayload = null
