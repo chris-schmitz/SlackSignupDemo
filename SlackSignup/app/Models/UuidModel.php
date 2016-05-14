@@ -11,6 +11,14 @@ class UuidModel extends Model
 
     public $incrementing = false;
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        static::creating(function ($model) {
+            $model->setUuid();
+        });
+    }
+
     protected function setUuid()
     {
         $uuid = Uuid::uuid1()->toString();
