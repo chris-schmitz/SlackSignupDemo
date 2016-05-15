@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Models\UuidModel;
 
@@ -10,6 +10,6 @@ class Invite extends UuidModel
 
     public function invitee()
     {
-        return $this->belongsTo('App\Invitee');
+        return $this->belongsTo('App\Models\Invitee');
     }
 }
