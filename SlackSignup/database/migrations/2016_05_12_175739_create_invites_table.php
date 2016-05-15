@@ -16,7 +16,10 @@ class CreateInvitesTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('invitee_id');
-            $table->foreign('invitee_id')->references('id')->on('invitees');
+            $table->foreign('invitee_id')
+                ->references('id')
+                ->on('invitees')
+                ->onDelete('cascade');
             $table->string('type');
             $table->timestamps();
         });
