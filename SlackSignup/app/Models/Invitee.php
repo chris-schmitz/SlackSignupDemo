@@ -9,6 +9,11 @@ class Invitee extends UuidModel
     protected $fillable = ['first_name', 'last_name', 'email'];
     protected $model;
 
+    public static function make($attributes = []){
+        $invitee = new Invitee;
+        return $invitee->create($attributes);
+    }
+
     public function exists($email)
     {
         if (empty($this->model)) {
@@ -26,5 +31,13 @@ class Invitee extends UuidModel
     public function invites()
     {
         return $this->hasMany('App\Models\Invite');
+    }
+
+    public function getId(){
+        return $this->id;
+    }
+
+    function fullName(){
+        return $this->first_name . " " . $this->last_name;
     }
 }

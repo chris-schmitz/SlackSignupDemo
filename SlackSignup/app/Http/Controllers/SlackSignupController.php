@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SuccessfulSignup;
 use App\Services\Signups\ManagesSignups;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -40,7 +41,7 @@ class SlackSignupController extends Controller
         $message = $this->storeDataIfNew();
         $message = $message ?: 'Invites have been resent.';
 
-        // event(new SuccessfulSignup($this->signupManager->getInvitees(), $this->signupManager->getInvites()));
+        event(new SuccessfulSignup($this->signupManager->getInvitees(), $this->signupManager->getInvites()));
 
         return $this->response($message, 200);
     }
@@ -57,11 +58,13 @@ class SlackSignupController extends Controller
         ];
 
         $invitesRequest = $this->request->get('invites');
-        $invites = collect($invitesRequest)->filter(function ($value, $key) {
-            return $value === true;
-        })->map(function ($invite, $key) {
+        $invites = collect($invitesRequest)->filter(function ($requested, $key) {
+            return $requested === true;
+        })
+        ->map(function ($invite, $invitedTo) {
             return $key;
-        });
+        })
+        ;
 
         $this->signupManager->store($invitee, $invites);
 
