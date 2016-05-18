@@ -29,7 +29,6 @@ class SendsSlackInvitations implements DeliversInvitation
 
     public function deliver(Invitee $invitee){
         $this->invitee = $invitee;
-        \Log::info('invite ' . $invitee->fullName() . ' to slack');
         $this->buildPayload();
         $this->constructUrl();
         $this->sendInvite();
