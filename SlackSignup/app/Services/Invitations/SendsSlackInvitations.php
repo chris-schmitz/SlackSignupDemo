@@ -32,8 +32,6 @@ class SendsSlackInvitations implements DeliversInvitation
         $this->buildPayload();
         $this->constructUrl();
         $this->sendInvite();
-        // construct and send the curl request
-        // throw custom exception(s) if anything goes wrong
     }
 
     protected function buildPayload(){
