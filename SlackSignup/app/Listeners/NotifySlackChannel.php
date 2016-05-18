@@ -12,10 +12,6 @@ class NotifySlackChannel
      * @var App\Models\Invitee
      */
     protected $invitee;
-    /**
-     * @var App\Models\Invite
-     */
-    protected $invites;
 
     /**
      * The POST data payload to send to slack
@@ -48,7 +44,6 @@ class NotifySlackChannel
     public function handle(SuccessfulSignup $event)
     {
         $this->invitee = $event->invitee();
-        $this->invites = $event->invites();
 
         $messageBody = $this->getInviteeName() . " has been invited to slack.";
 

@@ -37,7 +37,15 @@ class Invitee extends UuidModel
         return $this->id;
     }
 
-    function fullName(){
+    public function fullName(){
         return $this->first_name . " " . $this->last_name;
+    }
+
+    public function firstName(){
+        return $this->first_name;
+    }
+
+    public function email(){
+        return $this->email;
     }
 }

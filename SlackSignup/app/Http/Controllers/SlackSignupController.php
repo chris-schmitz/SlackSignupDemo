@@ -41,7 +41,7 @@ class SlackSignupController extends Controller
         $message = $this->storeDataIfNew();
         $message = $message ?: 'Invites have been resent.';
 
-        event(new SuccessfulSignup($this->signupManager->getInvitees(), $this->signupManager->getInvites()));
+        event(new SuccessfulSignup($this->signupManager->getInvitees()));
 
         return $this->response($message, 200);
     }
