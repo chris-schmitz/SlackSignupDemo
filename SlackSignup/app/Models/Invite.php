@@ -2,16 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\UuidModel;
+use App\Models\Foundations\UuidModel;
 
 class Invite extends UuidModel
 {
     protected $fillable = ['invitee_id', 'type'];
-
-    public static function make($attributes){
-        $invite = new Invite;
-        return $invite->create($attributes);
-    }
 
     public function invitee()
     {

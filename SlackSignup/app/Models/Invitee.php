@@ -2,21 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\UuidModel;
+use App\Models\Foundations\UuidModel;
 
 class Invitee extends UuidModel
 {
     protected $fillable = ['first_name', 'last_name', 'email'];
     protected $model;
-
-    public static function make($attributes = [])
-    {
-        $invitee = new Invitee;
-        collect($attributes)->each(function ($attribute, $field) use ($invitee) {
-            $invitee->{$field} = $attribute;
-        });
-        return $invitee;
-    }
 
     public function exists($email)
     {
