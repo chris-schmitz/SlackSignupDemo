@@ -55,7 +55,7 @@ return [
     |
      */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'schmitz.chris@gmail.com', 'name' => 'Saint Louis Full Stack Web Development'],
 
     /*
     |--------------------------------------------------------------------------

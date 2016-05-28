@@ -56,9 +56,10 @@ class SendsMeetupInvitations implements DeliversInvitation
      */
     protected function sendInvite()
     {
+        $me = $this;
         $payload = $this->payload;
-        Mail::send('emailtemplates.tests.mailguntest', ['payload' => $payload], function ($m) use ($payload) {
-            $m->from('schmitz.chris@gmail.com', 'pull both of these from config or env');
+        Mail::send('emailtemplates.tests.mailguntest', ['payload' => $payload], function ($m) use ($payload, $me) {
+            $m->from($me->getSenderEmail(), $me->getSenderName());
             $m->to($payload['email'], $payload['name'])->subject($payload['subject']);
         });
     }
@@ -71,6 +72,24 @@ class SendsMeetupInvitations implements DeliversInvitation
     protected function getInviteLink()
     {
         return $this->inviteLink;
+    }
+
+    /**
+     * Returns the email to use when sending emails from server.
+     * @return string The site's email address.
+     */
+    protected function getSenderEmail()
+    {
+        return config('mail.from.address');
+    }
+
+    /**
+     * Returns the name to use when sending emails from server.
+     * @return string The site's email name.
+     */
+    protected function getSenderName()
+    {
+        return config('mail.from.name');
     }
 
 }
