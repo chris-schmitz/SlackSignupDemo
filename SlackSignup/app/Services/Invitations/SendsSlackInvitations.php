@@ -55,7 +55,7 @@ class SendsSlackInvitations implements DeliversInvitation
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->payload);
         $sent = curl_exec($ch);
 
-        if($sent == false){
+        if($sent !== true){
             throw new \Exception("There was an error sending the Invitee's invitation to Slack.");
         }
     }

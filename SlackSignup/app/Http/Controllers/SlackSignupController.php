@@ -61,9 +61,9 @@ class SlackSignupController extends Controller
         $invites = collect($invitesRequest)->filter(function ($requested, $key) {
             return $requested === true;
         })
-        ->map(function ($invite, $invitedTo) {
-            return $key;
-        })
+            ->map(function ($invite, $invitedTo) {
+                return $invite;
+            })
         ;
 
         $this->signupManager->store($invitee, $invites);
