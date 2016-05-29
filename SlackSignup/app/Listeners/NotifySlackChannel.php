@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\SuccessfulSignup;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifySlackChannel
 {
@@ -48,7 +46,8 @@ class NotifySlackChannel
         $messageBody = $this->getInviteeName() . " has been invited to slack.";
 
         $this->buildDataPayload($messageBody);
-        $this->sendNotification();
+
+        return $this->sendNotification();
     }
 
     /**
@@ -59,17 +58,18 @@ class NotifySlackChannel
      *                         can use it to send anything to slack, we should refactor how this payload is built.
      * @return $this
      */
-    protected function buildDataPayload($message){
-        // hmmmmm, is the channel id really something to keep in a env config? 
-        // If we keep it here or even in a database table there's a chance the channel 
+    protected function buildDataPayload($message)
+    {
+        // hmmmmm, is the channel id really something to keep in a env config?
+        // If we keep it here or even in a database table there's a chance the channel
         // id could change. It's not likely, but there's a chance. For now, build it out
         // with the channel id in the env, but create a task to circle back and write a service
-        // for pulling it from slack dynamically 
+        // for pulling it from slack dynamically
 
         $this->payload = [
             'token' => env('SLACK_API_TOKEN'),
             'channel' => env('SLACK_API_MESSAGE_CHANNEL'),
-            'text' => $message
+            'text' => $message,
         ];
         return $this;
     }
@@ -78,7 +78,8 @@ class NotifySlackChannel
      * Return the invitee's full name.
      * @return string Full Name
      */
-    protected function getInviteeName(){
+    protected function getInviteeName()
+    {
         return $this->invitee->fullName();
     }
 
@@ -86,7 +87,8 @@ class NotifySlackChannel
      * Construct the API url.
      * @return null
      */
-    protected function buildUrl(){
+    protected function buildUrl()
+    {
         $basePath = env('SLACK_API_HOST');
         $postUri = "chat.postMessage";
         $this->url = $basePath . $postUri;
@@ -94,19 +96,21 @@ class NotifySlackChannel
 
     /**
      * Make API call to slack.
-     * 
+     *
      * @throws  Exception
      * @return null
      */
-    protected function sendNotification(){
+    protected function sendNotification()
+    {
         $ch = curl_init($this->url);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->payload);
         $sent = curl_exec($ch);
 
-        if($sent == false){
+        if ($sent == false) {
             throw new \Exception('There was an error notifying Slack.');
         }
+        return $sent;
     }
 
 }

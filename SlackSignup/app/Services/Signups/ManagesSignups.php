@@ -12,6 +12,7 @@ class ManagesSignups
 {
     protected $invitees;
     protected $invites;
+    protected $storedInvitee;
 
     public function __construct(Invitee $invitees, Invite $invites)
     {
@@ -19,6 +20,12 @@ class ManagesSignups
         $this->invites = $invites;
     }
 
+    /**
+     * Takes in invitee and invite information and creates models.
+     * @param  array $invitee An Array of invitee information.
+     * @param  array  $invites A multidimensional array of invite information.
+     * @return ManagesSignups
+     */
     public function store($invitee, $invites = [])
     {
         $invitee = $this->invitees->create($invitee);
@@ -26,6 +33,7 @@ class ManagesSignups
         foreach ($invites as $invite) {
             $invitee->invites()->create(['type' => $invite]);
         }
+        $this->storedInvitee = $invitee;
         return $this;
     }
 
@@ -41,7 +49,7 @@ class ManagesSignups
      */
     public function getInvitees()
     {
-        return $this->invitees;
+        return $this->storedInvitee;
     }
 
     /**
