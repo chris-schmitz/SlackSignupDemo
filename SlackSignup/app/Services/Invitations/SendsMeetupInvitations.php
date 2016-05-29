@@ -58,7 +58,7 @@ class SendsMeetupInvitations implements DeliversInvitation
     {
         $me = $this;
         $payload = $this->payload;
-        Mail::send('emailtemplates.tests.mailguntest', ['payload' => $payload], function ($m) use ($payload, $me) {
+        Mail::send('emailtemplates.meetupInvite', ['payload' => $payload], function ($m) use ($payload, $me) {
             $m->from($me->getSenderEmail(), $me->getSenderName());
             $m->to($payload['email'], $payload['name'])->subject($payload['subject']);
         });

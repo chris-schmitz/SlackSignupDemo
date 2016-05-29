@@ -16,8 +16,6 @@ class SendsMeetupInvitationsTest extends TestCase
 
         $sender = new SendsMeetupInvitations;
 
-        $delivered = $sender->deliver($invitee);
-
-        $this->assertTrue($delivered, true);
+        $this->assertTrue($sender->deliver($invitee), true);
     }
 }
