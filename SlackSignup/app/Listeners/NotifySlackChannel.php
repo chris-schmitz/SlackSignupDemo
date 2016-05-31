@@ -105,6 +105,7 @@ class NotifySlackChannel
         $ch = curl_init($this->url);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->payload);
+        curl_setopt($ch, CURLOPT_NOBODY, true);
         $sent = curl_exec($ch);
 
         if ($sent == false) {

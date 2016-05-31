@@ -99,7 +99,7 @@
                     } else {
                         notificationPayload = {
                             type: 'danger',
-                            message: "There was an error with your submission. Please try again."
+                            message: `There was an error with your submission: "${ response.data.message }". Please try again.`
                         }
                     }
 

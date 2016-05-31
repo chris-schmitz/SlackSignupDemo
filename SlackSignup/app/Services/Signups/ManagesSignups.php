@@ -30,7 +30,7 @@ class ManagesSignups
     {
         $invitee = $this->invitees->create($invitee);
         $id = $invitee->id;
-        foreach ($invites as $invite) {
+        foreach ($invites as $invite => $signedup) {
             $invitee->invites()->create(['type' => $invite]);
         }
         $this->storedInvitee = $invitee;

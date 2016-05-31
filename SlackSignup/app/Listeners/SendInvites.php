@@ -5,9 +5,6 @@ namespace App\Listeners;
 use App\Events\SuccessfulSignup;
 use App\Services\Invitations\SendsMeetupInvitations;
 use App\Services\Invitations\SendsSlackInvitations;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Collection;
 
 class SendInvites
 {
@@ -39,9 +36,8 @@ class SendInvites
 
         // I don't like this, it seems messy. Is there a better way of
         // delivering the invitation per invite type?
-        $this->invitee->invites->each(function ($invite) use ($me){
-
-            if($invite->type == 'meetup'){
+        $this->invitee->invites->each(function ($invite) use ($me) {
+            if ($invite->type == 'meetup') {
                 $me->meetupInviter->deliver($me->invitee);
             } else if ($invite->type == 'slack') {
                 $me->slackInviter->deliver($me->invitee);
