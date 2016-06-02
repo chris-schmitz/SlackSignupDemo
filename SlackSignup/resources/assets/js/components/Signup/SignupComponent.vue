@@ -5,7 +5,15 @@
 
     module.exports = {
         data: () => {
-            return { applyMask: false }
+            return { 
+                // should we keep this and the business logic below stay here?
+                // should we move this down to the mask?
+                // I kind of think so
+                mask: {
+                    show: false,
+                    message: ''
+                }
+            }
         },
         components:{
             'notifications': Notifications,
@@ -23,11 +31,12 @@
             resendInvites: function (){
                 this.$broadcast('resendInvites')
             },
-            toggleMask: function (state){
+            toggleMask: function (state, message){
                 if(state === true){
-                    this.applyMask = true
+                    this.mask.message = message
+                    this.mask.show = true
                 } else {
-                    this.applyMask = false
+                    this.mask.show = false
                 }
             }
         }
@@ -40,7 +49,7 @@
             STL Full Stack Web Development is a meetup group in Saint Louis, Missouri that meets monthly to review topics that make up the web development world.
         </p>
         <signup-form></signup-form>
-        <mask v-show="applyMask"></mask>
+        <mask v-show="mask.show" :message="mask.message"></mask>
     </div> 
 </template>
 

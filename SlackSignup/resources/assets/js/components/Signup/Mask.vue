@@ -1,5 +1,6 @@
 <script>
     module.exports = {
+        props:['message'],
         data: () => {
             return {
             }
@@ -13,7 +14,7 @@
                 <div class="panel-body">
                     <div class="aligner">
                         <div class="message-block">
-                            <h3>Submitting</h3> <div class="fa fa-spinner fa-pulse fa-3x fa-fw"></div>
+                            <h3>{{message}}</h3> <div class="fa fa-spinner fa-pulse fa-3x fa-fw"></div>
                         </div>
                     </div>
                 </div>

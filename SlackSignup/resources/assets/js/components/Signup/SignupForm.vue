@@ -73,7 +73,7 @@
                 let resend = config.resendInvites || false
                 let payload = this.buildPayload(resend)
 
-                me.$dispatch('toggleMask', true)
+                me.$dispatch('toggleMask', true, "Submitting")
 
                 me.$http({
                     url: 'signup', 
