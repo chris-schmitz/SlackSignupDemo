@@ -6,11 +6,7 @@ Signup
 
 @section('content')
 
-    <notifications></notifications>
-    <p>
-        STL Full Stack Web Development is a meetup group in Saint Louis, Missouri that meets monthly to review topics that make up the web development world.
-    </p>
-    <signup-form></signup-form>
+    <signupcomponent></signupcomponent>
 
 
 

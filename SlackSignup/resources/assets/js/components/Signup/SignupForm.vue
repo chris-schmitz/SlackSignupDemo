@@ -124,50 +124,50 @@
     }    
 </script>
 <template>
-           <p>
-            <form v-form v-show="!submitted" name="signupForm">
-                Submitting your email on this form will (<i>you must select at least one</i>):
-                <ul>
-                    <li class="checkbox">
-                        <label>
-                            <input type="checkbox" name="invites[]" value="meetup" v-model="invites.meetup" class="checkbox">Add you to the Meetup group.
-                        </label>
-                    </li>
-                    <li class="checkbox">
-                        <label>
-                            <input type="checkbox" name="invites[]" value="slack" v-model="invites.slack" class="checkbox">Add you to the Slack chat
-                        </label>
-                    </li>
-                </ul>
+    <p>
+        <form v-form v-show="!submitted" name="signupForm">
+            Submitting your email on this form will (<i>you must select at least one</i>):
+            <ul>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox" name="invites[]" value="meetup" v-model="invites.meetup" class="checkbox">Add you to the Meetup group.
+                    </label>
+                </li>
+                <li class="checkbox">
+                    <label>
+                        <input type="checkbox" name="invites[]" value="slack" v-model="invites.slack" class="checkbox">Add you to the Slack chat
+                    </label>
+                </li>
+            </ul>
 
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label for="email">First Name</label>
-                            <div>
-                                <input type="text" name="nameFirst" v-model="name.first" class="form-control" placeholder='optional'>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Last Name</label>
-                            <div>
-                                <input type="text" name="nameLast" v-model="name.last" class="form-control" placeholder='optional'>
-                            </div>
-                        </div>
-                        <div class="form-group" :class="{'has-error': emailHasError}">
-                            <label for="email">Email</label>
-                            <div>
-                                <input type="email" name="email" v-model="email.value" v-form-ctrl :required="email.isRequired" class="form-control" placeholder='required'>
-                                <span v-show="emailHasError" class="help-block">You need to provide an email to sign up.</span>
-                            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="email">First Name</label>
+                        <div>
+                            <input type="text" name="nameFirst" v-model="name.first" class="form-control" placeholder='optional'>
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        <div type="submit" @click="submit" class="btn btn-success" :class="{'disabled': !formIsValid}">Submit</div>
+                    <div class="form-group">
+                        <label for="email">Last Name</label>
+                        <div>
+                            <input type="text" name="nameLast" v-model="name.last" class="form-control" placeholder='optional'>
+                        </div>
+                    </div>
+                    <div class="form-group" :class="{'has-error': emailHasError}">
+                        <label for="email">Email</label>
+                        <div>
+                            <input type="email" name="email" v-model="email.value" v-form-ctrl :required="email.isRequired" class="form-control" placeholder='required'>
+                            <span v-show="emailHasError" class="help-block">You need to provide an email to sign up.</span>
+                        </div>
                     </div>
                 </div>
-            </form>
-        </p> 
+                <div class="panel-footer">
+                    <div type="submit" @click="submit" class="btn btn-success" :class="{'disabled': !formIsValid}">Submit</div>
+                </div>
+            </div>
+        </form>
+    </p> 
 </template>
 
 <style>
