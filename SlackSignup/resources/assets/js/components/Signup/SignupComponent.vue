@@ -4,6 +4,9 @@
     let Mask = require('./Mask.vue')
 
     module.exports = {
+        data: () => {
+            return { applyMask: false }
+        },
         components:{
             'notifications': Notifications,
             'signup-form': SignupForm,
@@ -20,8 +23,12 @@
             resendInvites: function (){
                 this.$broadcast('resendInvites')
             },
-            toggleMask: function (){
-                debugger;
+            toggleMask: function (state){
+                if(state === true){
+                    this.applyMask = true
+                } else {
+                    this.applyMask = false
+                }
             }
         }
     }    
@@ -33,7 +40,7 @@
             STL Full Stack Web Development is a meetup group in Saint Louis, Missouri that meets monthly to review topics that make up the web development world.
         </p>
         <signup-form></signup-form>
-        <mask></mask>
+        <mask v-show="applyMask"></mask>
     </div> 
 </template>
 

@@ -73,11 +73,14 @@
                 let resend = config.resendInvites || false
                 let payload = this.buildPayload(resend)
 
+                me.$dispatch('toggleMask', true)
+
                 me.$http({
                     url: 'signup', 
                     method: 'POST',
                     data: payload      
-                }).then((response) => {
+                })
+                .then((response) => {
                     this.submitted = true
 
                     let notificationPayload = {
@@ -85,9 +88,11 @@
                         message: response.data.message
                     }
 
+                    me.$dispatch('toggleMask', false)
                     me.$dispatch('showNotification', notificationPayload)
 
-                }, (response) => {
+                })
+                .catch((response) => {
                     let notificationPayload = null
 
                     if(response.status === 409){
@@ -103,6 +108,7 @@
                         }
                     }
 
+                    me.$dispatch('toggleMask', false)
                     me.$dispatch('showNotification', notificationPayload)
                 })
                 // ajax post to server

@@ -7,9 +7,6 @@ Signup
 @section('content')
 
     <signupcomponent></signupcomponent>
-
-
-
     <p>
     For more information about the group:
         <ul>
