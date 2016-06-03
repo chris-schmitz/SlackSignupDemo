@@ -4,6 +4,7 @@ namespace App\Services\Invitations;
 
 use App\Contracts\DeliversInvitation;
 use App\Models\Invitee;
+use Illuminate\Support\Facades\Mail;
 
 class SendsSlackInvitations implements DeliversInvitation
 {
@@ -75,8 +76,14 @@ class SendsSlackInvitations implements DeliversInvitation
         $payload['email'] = $this->getInviteeEmail();
         $payload['teamName'] = $this->slackTeamName;
         $payload['teamLink'] = $this->slackTeamUrl;
+        $payload['subject'] = sprintf("You've been added to the %s Slack team.", $this->slackTeamName);
+        $me = $this;
 
-        // Mail::send('')
+        Mail::send('emailtemplates.slackInvite', compact('payload'), function ($m) use ($payload, $me){
+            $m->to($payload['email'], $payload['name'])
+                ->from($me->getSenderEmail(), $me->getSenderName())
+                ->subject($payload['subject']);
+        });
 
         // get the users' name and email
         // get the link to the slack team
@@ -92,4 +99,23 @@ class SendsSlackInvitations implements DeliversInvitation
     {
         return $this->invitee->email();
     }
+        /**
+     * Returns the email to use when sending emails from server.
+     * @return string The site's email address.
+     */
+
+    protected function getSenderEmail()
+    {
+        return config('mail.from.address');
+    }
+
+    /**
+     * Returns the name to use when sending emails from server.
+     * @return string The site's email name.
+     */
+    protected function getSenderName()
+    {
+        return config('mail.from.name');
+    }
+
 }
