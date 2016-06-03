@@ -37,7 +37,6 @@ class SlackSignupController extends Controller
         if ($this->signupManager->hasAlreadySignedUp($email) && !$requestedInviteRefresh) {
             return $this->response("You have already submitted a signup request.", 409);
         }
-
         $message = $this->storeDataIfNew();
         $message = $message ?: 'Invites have been resent.';
 
@@ -48,7 +47,7 @@ class SlackSignupController extends Controller
 
     protected function storeDataIfNew()
     {
-        if ($this->signupManager->hasAlreadySignedUp($this->request->get('email'))) {
+        if ($invitee = $this->signupManager->hasAlreadySignedUp($this->request->get('email'))) {
             return;
         }
         $invitee = [

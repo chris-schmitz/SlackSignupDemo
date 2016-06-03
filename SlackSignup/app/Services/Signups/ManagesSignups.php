@@ -37,9 +37,15 @@ class ManagesSignups
         return $this;
     }
 
+    // this feels a bit clucky, consider refactor
     public function hasAlreadySignedUp($email)
     {
-        return $this->invitees->exists($email);
+        $invitee = $this->invitees->byEmail($email);
+        if($invitee->count() > 0){
+            $this->storedInvitee = $invitee;
+            return true;
+        }
+        return false;
     }
 
     /**
