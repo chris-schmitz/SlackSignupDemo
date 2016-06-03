@@ -6,13 +6,6 @@
     module.exports = {
         data: () => {
             return { 
-                // should we keep this and the business logic below stay here?
-                // should we move this down to the mask?
-                // I kind of think so
-                mask: {
-                    show: false,
-                    message: ''
-                }
             }
         },
         components:{
@@ -25,19 +18,19 @@
         // for shared state. It's not really needed in this simple system, 
         // but it would be cool to work with :P
         events:{
+            // Note that we're using es6 spread and destructuring assignment to pass
+            // the arguments through. This means regardless of how we change the parameters
+            // that the children use to send/receive these events we _won't_ have to update
+            // the event bridges here.
             showNotification: function (...payload){
-                this.$broadcast('showNotification', payload)
+                this.$broadcast('showNotification', ...payload)
             },
+            toggleMask: function (...payload){
+                this.$broadcast('toggleMask', ...payload)
+            },
+
             resendInvites: function (){
                 this.$broadcast('resendInvites')
-            },
-            toggleMask: function (state, message){
-                if(state === true){
-                    this.mask.message = message
-                    this.mask.show = true
-                } else {
-                    this.mask.show = false
-                }
             }
         }
     }    
@@ -49,7 +42,7 @@
             STL Full Stack Web Development is a meetup group in Saint Louis, Missouri that meets monthly to review topics that make up the web development world.
         </p>
         <signup-form></signup-form>
-        <mask v-show="mask.show" :message="mask.message"></mask>
+        <mask></mask>
     </div> 
 </template>
 

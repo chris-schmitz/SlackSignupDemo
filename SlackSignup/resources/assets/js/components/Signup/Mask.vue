@@ -1,20 +1,36 @@
 <script>
     module.exports = {
-        props:['message'],
         data: () => {
             return {
+                mask: {
+                    show: false,
+                    message: ''
+                }
+            }
+        },
+        events:{
+            toggleMask: "toggleMask"
+        },
+        methods:{
+            toggleMask: function (state, message){
+                if(state === true){
+                    this.mask.message = message
+                    this.mask.show = true
+                } else {
+                    this.mask.show = false
+                }
             }
         }
     }    
 </script>
 <template>
-    <div class="app-mask">
+    <div class="app-mask" v-show="mask.show">
         <div class="window">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="aligner">
                         <div class="message-block">
-                            <h3>{{message}}</h3> <div class="fa fa-spinner fa-pulse fa-3x fa-fw"></div>
+                            <h3>{{mask.message}}</h3> <div class="fa fa-spinner fa-pulse fa-3x fa-fw"></div>
                         </div>
                     </div>
                 </div>

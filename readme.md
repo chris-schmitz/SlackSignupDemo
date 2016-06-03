@@ -10,6 +10,12 @@ The idea is a site that allows for one spot to sign up and add yourself to the m
 
 I imagine the actual implementation of this project will be extended to do different things over time which is why the views and routes are namespaced.
 
+## What all is packed in here?
+
+This project uses the following tools:
+
+- 
+
 ## Mockup, Workflow, and ERD
 
 The [draw.io mockup, workflow, and ERD for this project can be found here](https://drive.google.com/file/d/0Bxhfk2Nciu7jSnBfeVBVUnBWYUU/view?usp=sharing).
