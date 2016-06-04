@@ -11,8 +11,7 @@ class Invitee extends UuidModel
 
     public function byEmail($email)
     {
-        $this->model = $this->where('email', $email)->get();
-        return $this;
+        return $this->where('email', $email)->get();
     }
 
     public function invites()

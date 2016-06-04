@@ -40,9 +40,9 @@ class ManagesSignups
     // this feels a bit clucky, consider refactor
     public function hasAlreadySignedUp($email)
     {
-        $invitee = $this->invitees->byEmail($email);
-        if($invitee->count() > 0){
-            $this->storedInvitee = $invitee;
+        $inviteeCollection = $this->invitees->byEmail($email);
+        if (!$inviteeCollection->isEmpty()) {
+            $this->storedInvitee = $inviteeCollection->first();
             return true;
         }
         return false;
