@@ -5,8 +5,9 @@ namespace App\Listeners;
 use App\Events\SuccessfulSignup;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NotifyAdmins
+class NotifyAdmins implements ShouldQueue
 {
     /**
      * The admin emails to notify.

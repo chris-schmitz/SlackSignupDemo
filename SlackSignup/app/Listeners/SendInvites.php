@@ -5,8 +5,9 @@ namespace App\Listeners;
 use App\Events\SuccessfulSignup;
 use App\Services\Invitations\SendsMeetupInvitations;
 use App\Services\Invitations\SendsSlackInvitations;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendInvites
+class SendInvites implements ShouldQueue
 {
     protected $slackInviter;
     protected $meetupInviter;

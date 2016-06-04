@@ -3,8 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\SuccessfulSignup;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NotifySlackChannel
+class NotifySlackChannel implements ShouldQueue
 {
     /**
      * @var App\Models\Invitee
