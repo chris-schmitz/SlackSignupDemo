@@ -15,7 +15,7 @@ class SignupManagerTest extends TestCase
      * @test
      * @return void
      */
-    public function canInstanitateManager()
+    public function can_instanitate_manager()
     {
         $invitee = new Invitee;
         $invite = new Invite;
@@ -26,37 +26,18 @@ class SignupManagerTest extends TestCase
     }
 
     /**
-     * A user who has already signed up will show as so.
-     * @test
-     * @return boolean True or False indication of previous signup state.
-     */
-    // public function previously_signed_up_invitee_shows_as_already_having_signed_up(){
-    //     $invite = new Invite;
-    //     $invitee = new Invitee;
-    //     $newInvitee = $invitee->create(['first_name' => 'test', 'last_name' => 'person', 'email' => 'test@lol.com']);
-    //     $manager = new ManagesSignups($invitee);
-
-    //     $this->assertTrue($manager->hasAlreadySignedUp($newInvitee->email));
-
-    // }
-
-    /**
-     * Invitees added to the signup manager can be returned.
      * @test
      */
-    public function invitees_created_have_same_name_format()
-    {
-        // This def doesn't seem like the test we should use. What all should we actually test?
+    public function can_store_invitee_and_invites(){
+        $inviteeData = ['first_name' => 'chris', 'last_name' => 'schmitz', 'email' => 'schmitz.chris@gmail.com'];
+        $invite1 = ['type' => 'meetup'];
+        $invite2 = ['type' => 'slack'];
 
-        // I'm assuming we can do these with mocks instead of creating the actual database records
-        // Come back after getting everything else working and learn/replace this with mocks
-        $chris = ['first_name' => 'Zoe', 'last_name' => 'Dog', 'email' => 'zoe@chrisandruthie.com'];
-        $invites = ['meetup', 'slack'];
+        $invitee = new Invitee;
+        $invite = new Invite;
+        $manager = new ManagesSignups($invitee, $invite);
 
-        $manager = new ManagesSignups(new Invitee, new Invite);
-        $manager->store($chris, $invites);
-
-        $this->assertEquals($manager->getInvitees()->get()->first()->fullName(), $chris['first_name'] . " " . $chris['last_name']);
+        $manager->store($inviteeData, [$invite1, $invite2]);
     }
 
 }

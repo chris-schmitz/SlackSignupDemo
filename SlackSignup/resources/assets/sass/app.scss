@@ -1,41 +1,32 @@
-$primary-color: #189995;
+/* Global variables */
+/* consider moving to a separate file if this gets too big*/
+$primary-color: #4C5764;
+$secondary-color: #CEE116;
+$secondary-color-darker: darken($secondary-color, 10%);
+$white: white;
+$white-darker: darken($white, 25%);
+$color3: #BECD3A;
 $disabled: #D5D5D5;
+$header-height: 130px;
+
+/* Overrides */
+@import "./_bootstrapoverrides.scss";
 
 
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/font-awesome/scss/font-awesome";
 @import "node_modules/animate.css/animate";
 
-.content{
-    margin-top: 40px;
-}
 
-.annotation{
-    display: block;
-    margin-left:5px;
-}
-
-.submit-button{
+body{
+    // background-color: $white-darker;
     color: $primary-color;
-    background-color: lighten($primary-color, 20%);
-    cursor: pointer;
-
+}
+p,label,li{
+    font-size: 14pt;
 }
 
-.disabled{
-    color: $disabled;
-    background-color: lighten($disabled, 10%);
-}
 
-.expand-transition{
-    transition: all .3s ease;
-    height:100px;
-    padding: 10px;
-    overflow:hidden;
-}
 
-.expand-enter, .expand-leave {
-    height:0;
-    padding: 0 10px;
-    opacity: 0;
-}
+@import "./header.scss";
+@import "./body.scss";

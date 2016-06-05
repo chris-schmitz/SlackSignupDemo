@@ -6,6 +6,7 @@
     <meta id="token" name="token" value="{{ csrf_token() }}">
 </head>
     <body>
+        @include('base.header')
         <div class="container content">
             @yield('content')
         </div>

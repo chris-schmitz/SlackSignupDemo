@@ -1,0 +1,41 @@
+a{
+    color:$secondary-color-darker;
+}
+
+input{
+    background-color: white;
+}
+
+.content{
+    margin-top: $header-height + 20px;
+}
+
+.annotation{
+    display: block;
+    margin-left:10px;
+}
+
+.submit-button{
+    color: $primary-color;
+    background-color: lighten($color3, 20%);
+    cursor: pointer;
+
+}
+
+.disabled{
+    color: $disabled;
+    background-color: lighten($disabled, 10%);
+}
+
+.expand-transition{
+    transition: all .3s ease;
+    height:100px;
+    padding: 10px;
+    overflow:hidden;
+}
+
+.expand-enter, .expand-leave {
+    height:0;
+    padding: 0 10px;
+    opacity: 0;
+}

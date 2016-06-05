@@ -67,6 +67,7 @@
     }
     .message-block{
         
+        color: white;
         h3{
             display:inline-block;
         }
